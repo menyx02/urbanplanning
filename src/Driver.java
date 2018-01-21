@@ -6,11 +6,11 @@ public class Driver {
 
         //Initialize knowledge base ******************************
         DatabaseManager db = new DatabaseManager();
-        db.initializeDatabase();
+        db.initializeConnectionDatabase();
 
         //ONLY run this command first time using database
-        db.initializeTables();
-        //^^^^^^^^^^
+        //db.initializeTables();
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
     }

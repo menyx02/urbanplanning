@@ -2,15 +2,9 @@ package Database;
 
 import java.sql.*;
 
+import Database.DAOs.*;
 
-/*
-import databasemanagement.daos.CarretesTerminadosDAO;
-import databasemanagement.daos.ClientesDAO;
-import databasemanagement.daos.MateriaPrimaDAO;
-import databasemanagement.daos.ModelosDAO;
-import databasemanagement.daos.ProcesosDAO;
-import databasemanagement.daos.SalidaCarretesDAO;
-import databasemanagement.daos.UsuariosDAO;*/
+
 
 public class DatabaseManager {
 
@@ -20,31 +14,31 @@ public class DatabaseManager {
     private Connection connection;
 
 
-/*
-    private CarretesTerminadosDAO carretesTerminadosDAO;
-    private ClientesDAO clientesDAO;
-    private MateriaPrimaDAO materiaPrimaDAO;
-    private ModelosDAO modelosDAO;
-    private ProcesosDAO procesosDAO;
-    private SalidaCarretesDAO salidaCarretesDAO;
-    private UsuariosDAO usuariosDAO;*/
+    private CityDao cityDao;
+    private PlaceDao placeDao;
+    private ZipCodeDao zipCodeDao;
+
 
 
     public DatabaseManager() {
         connection = null;
-       /* this.carretesTerminadosDAO = new CarretesTerminadosDAO(this);
-        this.clientesDAO = new ClientesDAO(this);
-        this.materiaPrimaDAO = new MateriaPrimaDAO(this);
-        this.modelosDAO = new ModelosDAO(this);
-        this.procesosDAO = new ProcesosDAO(this);
-        this.salidaCarretesDAO = new SalidaCarretesDAO(this);
-        this.usuariosDAO = new UsuariosDAO(this);*/
+
+        //Initialize DAOs and prepare to receive connection to database
+        this.cityDao = new CityDao();
+        this.placeDao = new PlaceDao();
+        this.zipCodeDao = new ZipCodeDao();
     }
 
-    public void initializeDatabase() {
+    public void initializeConnectionDatabase() {
         try {
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
+
+            //Connection established with database, give it to the DAOs
+            cityDao.setConnection(connection);
+            placeDao.setConnection(connection);
+            zipCodeDao.setConnection(connection);
+
         }
         catch(ClassNotFoundException e) {
             System.out.println("Could not load database driver");
@@ -225,46 +219,19 @@ public class DatabaseManager {
         }
     }
 
-
-
-
-
-
-
-/*
-
-    public CarretesTerminadosDAO getCarretesTerminadosDAO() {
-        return carretesTerminadosDAO;
+    public CityDao getCityDao() {
+        return cityDao;
     }
 
-    public ClientesDAO getClientesDAO() {
-        return clientesDAO;
+    public PlaceDao getPlaceDao() {
+        return placeDao;
     }
 
-    public MateriaPrimaDAO getMateriaPrimaDAO() {
-        return materiaPrimaDAO;
-    }
-
-    public ModelosDAO getModelosDAO() {
-        return modelosDAO;
-    }
-
-    public ProcesosDAO getProcesosDAO() {
-        return procesosDAO;
-    }
-
-    public SalidaCarretesDAO getSalidaCarretesDAO() {
-        return salidaCarretesDAO;
-    }
-
-    public UsuariosDAO getUsuariosDAO() {
-        return usuariosDAO;
+    public ZipCodeDao getZipCodeDao() {
+        return zipCodeDao;
     }
 
     public Connection getConnection() {
         return connection;
     }
-
-}*/
-
 }
