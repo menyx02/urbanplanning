@@ -11,5 +11,7 @@ public class Driver {
         //ONLY run this command first time using database
         db.initializeTables();
         //^^^^^^^^^^
+
+
     }
 }

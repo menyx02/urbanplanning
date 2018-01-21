@@ -82,13 +82,15 @@ public class DatabaseManager {
         Statement st = null;
         try {
             st = connection.createStatement();
-            String query = "CREATE  TABLE City";
+            String query = "CREATE  TABLE \"City\" (\"Name\" VARCHAR NOT NULL , \"Coordinates\" VARCHAR " +
+                    "NOT NULL  UNIQUE , \"Area\" INTEGER, \"Population\" INTEGER, PRIMARY KEY " +
+                    "(\"Name\", \"Coordinates\"))";
             st.executeUpdate(query);
             endTransaction(true);
         }
         catch(SQLException e) {
             endTransaction(false);
-            System.out.println("Could not create Usuarios table");
+            System.out.println("Could not create City table");
         }
         finally {
             safeClose(st);
@@ -102,13 +104,16 @@ public class DatabaseManager {
         Statement st = null;
         try {
             st = connection.createStatement();
-            String query = "CREATE  TABLE ZipCode ";
+            String query = "CREATE  TABLE \"ZipCode\" (\"Code\" INTEGER NOT NULL  UNIQUE , \"City\" " +
+                    "VARCHAR NOT NULL , \"Coordinates\" VARCHAR NOT NULL  UNIQUE , \"Population\" INTEGER, " +
+                    "\"Median Age\" INTEGER, \"Education\" INTEGER, \"Housing Units\" INTEGER, \"Median Income\" " +
+                    "INTEGER, PRIMARY KEY (\"Code\", \"City\"))";
             st.executeUpdate(query);
             endTransaction(true);
         }
         catch(SQLException e) {
             endTransaction(false);
-            System.out.println("Could not create Usuarios table");
+            System.out.println("Could not create ZipCode table");
         }
         finally {
             safeClose(st);
@@ -122,13 +127,16 @@ public class DatabaseManager {
         Statement st = null;
         try {
             st = connection.createStatement();
-            String query = "CREATE  TABLE Place";
+            String query = "CREATE  TABLE \"Place\" (\"Name\" VARCHAR NOT NULL , \"ZipCode\" INTEGER NOT NULL ," +
+                    " \"City\" INTEGER NOT NULL , \"Coordinates\" VARCHAR NOT NULL , \"Type\" VARCHAR NOT NULL , " +
+                    "\"Population\" INTEGER, \"Dimension\" DOUBLE, \"IndexGrid\" VARCHAR, PRIMARY KEY (\"Name\", " +
+                    "\"ZipCode\", \"City\"))";
             st.executeUpdate(query);
             endTransaction(true);
         }
         catch(SQLException e) {
             endTransaction(false);
-            System.out.println("Could not create Usuarios table");
+            System.out.println("Could not create Place table");
         }
         finally {
             safeClose(st);
