@@ -122,7 +122,7 @@ public class CityDao {
             dbManager.safeClose(rs);
             dbManager.safeClose(smt);
             dbManager.endTransaction(false);
-            System.out.println("Could not get all ciites");
+            System.out.println("Could not get all Cities");
         }
 
         return allCities;

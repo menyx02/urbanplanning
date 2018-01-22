@@ -94,7 +94,7 @@ public class DatabaseManager {
             st = connection.createStatement();
             String query = "CREATE  TABLE \"ZipCode\" (\"Code\" INTEGER NOT NULL  UNIQUE , \"City\" " +
                     "VARCHAR NOT NULL , \"Coordinates\" VARCHAR NOT NULL  UNIQUE , \"Population\" INTEGER, " +
-                    "\"Median Age\" INTEGER, \"Education\" INTEGER, \"Housing Units\" INTEGER, \"Median Income\" " +
+                    "\"MedianAge\" INTEGER, \"Education\" INTEGER, \"HousingUnits\" INTEGER, \"MedianIncome\" " +
                     "INTEGER, PRIMARY KEY (\"Code\", \"City\"))";
             st.executeUpdate(query);
             endTransaction(true);
