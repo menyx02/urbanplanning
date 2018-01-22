@@ -6,6 +6,9 @@ public class Coordinates {
     private double lat;
     private double longitude;
 
+    //Empty constructor for DAO
+    public Coordinates() {}
+
     public Coordinates (String coordinate) {
         this.coordinate = coordinate;
         parseCoordinate(coordinate);

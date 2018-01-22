@@ -11,6 +11,11 @@ public class ZipCode {
     private int housingUnits;
     private int medianIncome;
 
+
+    //Empty constructor for DAO
+    public ZipCode() {}
+
+
     //Partial initialization
     public ZipCode(int code, City city, Coordinates coordinates) {
         this.code = code;

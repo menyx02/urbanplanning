@@ -12,6 +12,9 @@ public class Place {
     private String indexGrid;
 
 
+    //Empty constructor for DAO
+    public Place() {}
+
     //Partial initialization
     public Place(String name, ZipCode zipcode, City city, Coordinates coordinates, String type) {
         this.name = name;
