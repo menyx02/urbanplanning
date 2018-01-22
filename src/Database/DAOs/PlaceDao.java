@@ -1,15 +1,17 @@
 package Database.DAOs;
 
+import Database.DatabaseManager;
+
+import javax.xml.crypto.Data;
 import java.net.ConnectException;
 import java.sql.*;
 
 public class PlaceDao {
 
-    private Connection connection;
+    private DatabaseManager dbManager;
 
-    public PlaceDao() {}
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public PlaceDao(DatabaseManager dbManager) {
+        this.dbManager = dbManager;
     }
 }

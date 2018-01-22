@@ -3,21 +3,25 @@ package Model;
 public class Coordinates {
 
     private String coordinate;
+    private double lat;
+    private double longitude;
 
     public Coordinates (String coordinate) {
         this.coordinate = coordinate;
+        parseCoordinate(coordinate);
     }
 
-    public String getLatitute() {
-        //TODO implement this method
-        return null;
+    private void parseCoordinate(String coordinate) {
+        //TODO implement once I have the formate of the coordinates
     }
 
-    public String getLongitute() {
-        //TODO implement this method
-        return null;
+    public double getLatitute() {
+        return lat;
     }
 
+    public double getLongitute() {
+        return longitude;
+    }
 
     public String getCoordinate() {
         return coordinate;
@@ -25,5 +29,6 @@ public class Coordinates {
 
     public void setCoordinate(String coordinate) {
         this.coordinate = coordinate;
+        parseCoordinate(coordinate);
     }
 }

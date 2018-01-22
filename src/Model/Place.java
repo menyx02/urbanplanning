@@ -19,6 +19,9 @@ public class Place {
         this.city = city;
         this.coordinates = coordinates;
         this.type = type;
+        population = 0;
+        dimension = 0;
+        indexGrid = "";
     }
 
     //Full initialization

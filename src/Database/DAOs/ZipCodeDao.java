@@ -1,16 +1,15 @@
 package Database.DAOs;
 
+import Database.DatabaseManager;
 import Model.ZipCode;
 
 import java.sql.*;
 
 public class ZipCodeDao {
 
-    private Connection connection;
+    private DatabaseManager dbManager;
 
-    public ZipCodeDao () {}
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public ZipCodeDao(DatabaseManager dbManager) {
+        this.dbManager = dbManager;
     }
 }

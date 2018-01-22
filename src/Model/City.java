@@ -8,10 +8,16 @@ public class City {
     private int population;
 
 
+    //Empty constructor for DAO
+    public City() {}
+
+
     //Partial initialization
     public City(String name, Coordinates coordinates) {
         this.name = name;
         this.coordinates = coordinates;
+        area = 0;
+        population = 0;
     }
 
     //Full initialization

@@ -16,6 +16,11 @@ public class ZipCode {
         this.code = code;
         this.city = city;
         this.coordinates = coordinates;
+        population = 0;
+        medianAge = 0;
+        education = 0;
+        housingUnits = 0;
+        medianIncome = 0;
     }
 
     //Full initialization

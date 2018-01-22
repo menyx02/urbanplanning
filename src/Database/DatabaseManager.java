@@ -24,21 +24,15 @@ public class DatabaseManager {
         connection = null;
 
         //Initialize DAOs and prepare to receive connection to database
-        this.cityDao = new CityDao();
-        this.placeDao = new PlaceDao();
-        this.zipCodeDao = new ZipCodeDao();
+        this.cityDao = new CityDao(this);
+        this.placeDao = new PlaceDao(this);
+        this.zipCodeDao = new ZipCodeDao(this);
     }
 
     public void initializeConnectionDatabase() {
         try {
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
-
-            //Connection established with database, give it to the DAOs
-            cityDao.setConnection(connection);
-            placeDao.setConnection(connection);
-            zipCodeDao.setConnection(connection);
-
         }
         catch(ClassNotFoundException e) {
             System.out.println("Could not load database driver");
