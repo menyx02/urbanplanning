@@ -10,4 +10,5 @@ public class Randomizer {
     public static Double randomProbability() {
         return random.nextDouble();
     }
+    public static Integer randomInteger(int min, int max){return min + random.nextInt(max);}
 }

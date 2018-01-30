@@ -18,11 +18,11 @@ public class Coordinates {
         //TODO implement once I have the formate of the coordinates
     }
 
-    public double getLatitute() {
+    public double getLatitude() {
         return lat;
     }
 
-    public double getLongitute() {
+    public double getLongitude() {
         return longitude;
     }
 
