@@ -44,14 +44,10 @@ public class Matrix {
             endCol = Randomizer.randomInteger(startCol, cols - 1);
             for (int i = startRow; i <= endRow; ++i) {
                 for (int j = startCol; j <= endCol; ++j) {
-                    entries[i][j] = getGaussianValue(entries[i][j]);
+                    entries[i][j] = Randomizer.generateGaussianValue(entries[i][j]);
                 }
             }
         }
-    }
-
-    private double getGaussianValue(double v) {
-        return -1;
     }
 
     protected Matrix generateMutatedCopy(Double alpha) {
@@ -67,6 +63,22 @@ public class Matrix {
         copy.mutate(alpha);
         return copy;
     }
+
+    public Matrix difference(Matrix other) {
+        Matrix result =  new Matrix(rows, cols);
+      /*  for(int i = 0; i < rows; ++i) {
+            for(int j = 0; j < cols; ++j)
+        }*/
+      // todo: complete
+      return null;
+    }
+
+    public double distance(Matrix other) {
+        //todo: complete method
+        return 0;
+    }
+
+    //private void transpose()
 
     public void normalize(BoundingBox boundary) {
         double yRange = boundary.getNorth() - boundary.getSouth();
