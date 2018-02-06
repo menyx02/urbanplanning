@@ -74,13 +74,27 @@ public class Matrix {
     }
 
     public Matrix difference(Matrix other) {
-        Matrix result =  new Matrix(rows, cols);
-        for(int i = 0; i < rows; ++i) {
-            for(int j = 0; j < cols; ++j) {
-                //todo: figure out algorithm
-            }
+        Matrix result;
+        if(rows == other.rows && cols == other.cols) {
+            result = new Matrix(rows, cols);
+            subtract(other, result);
+        }
+        else {
+            result =  new Matrix( rows > other.rows ? rows : other.rows, cols);
+            mismatchedSubtract(other, result);
         }
       return null;
+    }
+
+    private void mismatchedSubtract(Matrix other, Matrix result) {
+    }
+
+    private void subtract(Matrix other, Matrix result) {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result.entries[i][j] = entries[i][j] - other.entries[i][j];
+            }
+        }
     }
 
     public double trace() throws MatrixOperationException {

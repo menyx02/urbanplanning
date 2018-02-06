@@ -43,7 +43,7 @@ public class Driver {
             do {
                 indexTwo = Randomizer.randomWeightedIndex(probabilities);
             } while (indexOne == indexTwo);
-            double alpha = -1; //todo: add alpha logic
+            double alpha = Math.exp(-(i+1)/ generations) - .15;
             population.get(indexOne).breed(population.get(indexTwo), population, alpha);
             population.sort(sorter);
             while(population.size() > populationSize)  {
