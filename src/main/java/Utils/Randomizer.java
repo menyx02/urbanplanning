@@ -1,5 +1,6 @@
 package Utils;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -22,4 +23,13 @@ public class Randomizer {
         return ((randomProbability() > .5) ? outcomeOne : outcomeTwo) * .1 + mu;
     }
 
+    public static int randomWeightedIndex(List<Double> values) {
+        double prob = Randomizer.randomProbability();
+        double total = 0;
+        int i;
+        for(i = 0; i < values.size() && total < prob; ++i) {
+            total += values.get(i);
+        }
+        return i;
+    }
 }

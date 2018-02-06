@@ -3,10 +3,12 @@ package Database.DAOs;
 import Database.DatabaseManager;
 import Model.City;
 import Model.Coordinates;
+import Representation.BaseCity;
 
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CityDao {
 
@@ -90,8 +92,8 @@ public class CityDao {
     }
 
 
-    public ArrayList<City> getAllCities() {
-        ArrayList<City> allCities = new ArrayList<City>();
+    public List<BaseCity> getAllCities() {
+        ArrayList<BaseCity> allCities = new ArrayList<BaseCity>();
 
         dbManager.startTransaction();
         Connection con = dbManager.getConnection();
@@ -105,12 +107,11 @@ public class CityDao {
             rs = smt.executeQuery();
 
             while(rs.next()) {
-                City x = new City();
+                BaseCity x = new BaseCity(null); //todo:update
                 x.setName(rs.getString("Name"));
                 x.setCoordinates(new Coordinates(rs.getString("Coordinates")));
                 x.setArea(rs.getDouble("Area"));
                 x.setPopulation(rs.getInt("Population"));
-
                 allCities.add(x);
             }
 

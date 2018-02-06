@@ -1,5 +1,6 @@
 package Representation;
 
+import Exceptions.MatrixOperationException;
 import Model.Coordinates;
 import Utils.Randomizer;
 import org.geonames.BoundingBox;
@@ -64,21 +65,70 @@ public class Matrix {
         return copy;
     }
 
+    private Matrix deepCopy() {
+        Matrix copy = new Matrix(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            System.arraycopy(entries[i], 0, copy.entries[i], 0, cols);
+        }
+        return copy;
+    }
+
     public Matrix difference(Matrix other) {
         Matrix result =  new Matrix(rows, cols);
-      /*  for(int i = 0; i < rows; ++i) {
-            for(int j = 0; j < cols; ++j)
-        }*/
-      // todo: complete
+        for(int i = 0; i < rows; ++i) {
+            for(int j = 0; j < cols; ++j) {
+                //todo: figure out algorithm
+            }
+        }
       return null;
     }
 
-    public double distance(Matrix other) {
-        //todo: complete method
-        return 0;
+    public double trace() throws MatrixOperationException {
+        if (rows != cols) {
+            throw new MatrixOperationException(String.format("Invalid Matrix Dimensions %dx%d! Must be nxn", rows, cols));
+        }
+        double total = 0;
+        for (int i = 0; i < rows; ++i) {
+            total += entries[i][i];
+        }
+        return total;
     }
 
-    //private void transpose()
+    public double distance(Matrix other) throws MatrixOperationException {
+        Matrix normal = difference(other);
+        Matrix transposed = normal.deepCopy();
+        transposed.transpose();
+        return Math.sqrt(normal.multiply(transposed).trace());
+    }
+
+    private Matrix multiply(Matrix other) throws MatrixOperationException {
+        if (rows != other.cols || cols != other.rows) {
+            throw new MatrixOperationException("Invalid Matrix Dimensions!");
+        }
+        Matrix product = new Matrix(rows, rows);
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < other.cols; j++) {
+                for(int k = 0; k < cols; k++) {
+                    product.entries[i][j] += entries[i][k] * other.entries[k][j];
+                }
+            }
+        }
+        return product;
+    }
+
+    private void transpose() {
+        int index;
+        double temp [][] = new double[cols][rows];
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                temp[j][i] = entries[i][j];
+            }
+        }
+        index = cols;
+        entries = temp;
+        cols = rows;
+        rows = index;
+    }
 
     public void normalize(BoundingBox boundary) {
         double yRange = boundary.getNorth() - boundary.getSouth();
