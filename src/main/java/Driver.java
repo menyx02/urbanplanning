@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Driver {
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         //Initialize knowledge base ******************************
         DatabaseManager db = new DatabaseManager();
@@ -21,7 +21,7 @@ public class Driver {
         CityDao cityDao = db.getCityDao();
         List<BaseCity> population = cityDao.getAllCities();
         runSimulation(population, Integer.getInteger(args[0]), Integer.getInteger(args[1]));
-    }
+    }*/
 
     @SuppressWarnings("Since15")
     private static void runSimulation(List<BaseCity> population, int generations, int populationSize) {

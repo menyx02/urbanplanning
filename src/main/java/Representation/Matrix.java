@@ -4,7 +4,8 @@ import Exceptions.MatrixOperationException;
 import Model.Coordinates;
 import Model.Point;
 import Utils.Randomizer;
-//import org.geonames.BoundingBox;
+import org.geonames.BoundingBox;
+
 
 import java.util.List;
 import java.util.Random;
@@ -36,9 +37,9 @@ public class Matrix {
 
     public int getNumRows() {return this.rows;}
 
-    public Point getEntryAt(int row) {
+  /*  public Point getEntryAt(int row) {
         return new Point(entries[row][0], entries[row][1]);
-    }
+    }*/
 
 
     protected void mutate(Double alpha) {
@@ -152,14 +153,18 @@ public class Matrix {
         rows = index;
     }
 
-//    public void normalize(BoundingBox boundary) {
-//        double yRange = boundary.getNorth() - boundary.getSouth();
-//        double xRange = boundary.getWest() - boundary.getEast();
-//        for (int i = 0; i < rows; ++i) {
-//            entries[i][0] = (entries[i][0] - boundary.getEast()) / xRange;
-//            entries[i][1] = (entries[i][1] - boundary.getSouth()) / yRange;
-//        }
-//    }
+   public void normalize(BoundingBox boundary) {
+        double yRange = boundary.getNorth() - boundary.getSouth();
+        double xRange = boundary.getWest() - boundary.getEast();
+        for (int i = 0; i < rows; ++i) {
+            entries[i][0] = (entries[i][0] - boundary.getEast()) / xRange;
+            entries[i][1] = (entries[i][1] - boundary.getSouth()) / yRange;
+        }
+    }
+
+    public Point getEntryAt(int j) {
+        return new Point(entries[j][0], entries[j][1]);
+    }
 
 
     interface Rotation {

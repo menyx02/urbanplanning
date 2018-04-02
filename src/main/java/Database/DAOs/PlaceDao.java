@@ -31,14 +31,20 @@ public class PlaceDao {
 
 
             smt = conn.prepareStatement(command);
+
             smt.setString(1, place.getName());
-            smt.setInt(2, place.getZipcode().getCode());
-            smt.setString(3, place.getCity().getName());
+
+            smt.setInt(2, 123);
+
+            smt.setString(3, "filler"); //place.getCity().getName());
+
             smt.setString(4, place.getCoordinates().getCoordinate());
-            smt.setString(5, place.getType());
-            smt.setInt(6, place.getPopulation());
-            smt.setDouble(7, place.getDimension());
-            smt.setString(8, place.getIndexGrid());
+
+            smt.setString(5, " ");//place.getType());
+
+            smt.setInt(6, 123);//place.getPopulation());
+            smt.setDouble(7, 123);//place.getDimension());
+            smt.setString(8, "");//place.getIndexGrid());
 
 
             if(smt.executeUpdate() == 1) {
@@ -54,6 +60,7 @@ public class PlaceDao {
         catch (Exception e) {
             dbManager.safeClose(smt);
             dbManager.endTransaction(false);
+            e.printStackTrace();
             System.out.println("Could not add place " + place.getName());
         }
     }
@@ -93,7 +100,7 @@ public class PlaceDao {
                 queriedPlace.setCoordinates(coo);
 
                 queriedPlace.setType(rs.getString("Type"));
-                queriedPlace.setPopulation(rs.getInt("Population"));
+                queriedPlace.setPopulation(Integer.toString(rs.getInt("Population")));
                 queriedPlace.setDimension(rs.getDouble("Dimension"));
                 queriedPlace.setIndexGrid(rs.getString("IndexGrid"));
 
@@ -154,7 +161,7 @@ public class PlaceDao {
                 queriedPlace.setCoordinates(coo);
 
                 queriedPlace.setType(rs.getString("Type"));
-                queriedPlace.setPopulation(rs.getInt("Population"));
+                queriedPlace.setPopulation(Integer.toString(rs.getInt("Population")));
                 queriedPlace.setDimension(rs.getDouble("Dimension"));
                 queriedPlace.setIndexGrid(rs.getString("IndexGrid"));
 
