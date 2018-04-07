@@ -9,8 +9,7 @@ import java.util.List;
 
 public class Driver {
 
-   /* public static void main(String[] args) {
-
+   /*public static void main(String[] args) {
         //Initialize knowledge base ******************************
         DatabaseManager db = new DatabaseManager();
         db.initializeConnectionDatabase();
