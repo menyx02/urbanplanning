@@ -15,7 +15,7 @@ public class Driver {
         db.initializeConnectionDatabase();
 
         //ONLY run this command first time using database
-        //db.initializeTables();
+        db.initializeTables();
         //^^^^^^^^^^^^^^^^^^^^^^^^^
         CityDao cityDao = db.getCityDao();
         List<BaseCity> population = cityDao.getAllCities();

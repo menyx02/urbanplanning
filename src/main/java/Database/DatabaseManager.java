@@ -115,7 +115,7 @@ public class DatabaseManager {
         Statement st = null;
         try {
             st = connection.createStatement();
-            String query = "CREATE  TABLE \"Place\" (\"Name\" VARCHAR NOT NULL , \"ZipCode\" INTEGER NOT NULL ," +
+            String query = "CREATE  TABLE \"Place\" (\"Name\" VARCHAR NOT NULL , \"ZipCode\" INTEGER," +
                     " \"City\" VARCHAR NOT NULL , \"Coordinates\" VARCHAR NOT NULL , \"Type\" VARCHAR NOT NULL , " +
                     "\"Population\" INTEGER, \"Dimension\" DOUBLE, \"IndexGrid\" VARCHAR, PRIMARY KEY (\"Name\", " +
                     "\"Coordinates\", \"City\"))";
