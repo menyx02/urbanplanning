@@ -1,6 +1,7 @@
 package Representation;
 
 import Model.Coordinates;
+import Model.Place;
 import Utils.Randomizer;
 import org.geonames.BoundingBox;
 
@@ -17,10 +18,11 @@ public class BaseCity {
     private Coordinates coordinates;
     private double area;
     private int population;
+    private String id;
 
-    private BaseCity(){
-        this.boundary = null;
-        normalized = true;
+    public BaseCity(){
+        this.boundary = new BoundingBox(Double.MIN_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MIN_VALUE);
+        normalized = false;
         features = new HashMap<String, Matrix>();
     }
 
@@ -28,6 +30,39 @@ public class BaseCity {
         this.boundary = boundary;
         normalized = false;
         features = new HashMap<String, Matrix>();
+    }
+
+    public BaseCity(List<Place> places) {
+        features = new HashMap<String, Matrix>();
+        double west = Double.MIN_VALUE;
+        double east = Double.MAX_VALUE;
+        double north = Double.MIN_VALUE;
+        double south = Double.MAX_VALUE;
+        for (Place p : places) {
+            if(!features.containsKey(p.getType())){
+                Matrix m = new Matrix(p.getCoordinates());
+                features.put(p.getType(), m);
+            }
+            else {
+                features.get(p.getType()).addEntry(p.getCoordinates());
+            }
+            double longitude = p.getCoordinates().getLongitude();
+            double latitude = p.getCoordinates().getLatitude();
+            if(longitude > west) {
+                west = longitude;
+            }
+            if (longitude < east){
+                east = longitude;
+            }
+            if(latitude > north) {
+                north = latitude;
+            }
+            if (latitude < south) {
+                south = latitude;
+            }
+        }
+        this.boundary = new BoundingBox(west, east, south, north);
+        normalized = false;
     }
 
     protected void setBuildingType (String type, List<Coordinates> coordinates) {
@@ -62,14 +97,23 @@ public class BaseCity {
         BaseCity offspringOne = new BaseCity();
         BaseCity offspringTwo = new BaseCity();
         for (String type : features.keySet()){
+            if(features.containsKey(type) && partner.features.containsKey(type)) {
                 if (kept.contains(type)) {
                     offspringOne.features.put(type, features.get(type).generateMutatedCopy(alpha));
                     offspringTwo.features.put(type, partner.features.get(type).generateMutatedCopy(alpha));
-                }
-                else {
+                } else {
                     offspringOne.features.put(type, partner.features.get(type).generateMutatedCopy(alpha));
                     offspringTwo.features.put(type, features.get(type).generateMutatedCopy(alpha));
                 }
+            }
+            else if (features.containsKey(type)) {
+                offspringOne.features.put(type, features.get(type).generateMutatedCopy(alpha));
+                offspringTwo.features.put(type, features.get(type).generateMutatedCopy(alpha));
+            }
+            else {
+                offspringOne.features.put(type, partner.features.get(type).generateMutatedCopy(alpha));
+                offspringTwo.features.put(type, partner.features.get(type).generateMutatedCopy(alpha));
+            }
         }
         population.add(offspringOne);
         population.add(offspringTwo);
@@ -109,6 +153,43 @@ public class BaseCity {
 
     public int getValue() {
         //todo: incorporate value code
-        return -1;
+        return features.entrySet().size();
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId(){return id;}
+
+    public void addAllPlaces(List<Place> places) {
+        double west = boundary.getWest();
+        double east = boundary.getEast();
+        double north = boundary.getNorth();
+        double south = boundary.getSouth();
+        for (Place p : places) {
+            if(!features.containsKey(p.getType())){
+                Matrix m = new Matrix(p.getCoordinates());
+                features.put(p.getType(), m);
+            }
+            else {
+                features.get(p.getType()).addEntry(p.getCoordinates());
+            }
+            double longitude = p.getCoordinates().getLongitude();
+            double latitude = p.getCoordinates().getLatitude();
+            if(longitude > west) {
+                west = longitude;
+            }
+            if (longitude < east){
+                east = longitude;
+            }
+            if(latitude > north) {
+                north = latitude;
+            }
+            if (latitude < south) {
+                south = latitude;
+            }
+        }
+        this.boundary = new BoundingBox(west, east, south, north);
     }
 }

@@ -12,7 +12,7 @@ public class Randomizer {
         return random.nextDouble();
     }
     public static Integer randomInteger(int min, int max) {
-        return min + random.nextInt(max);
+        return random.nextInt(max - min + 1) + min;
     }
 
     public static double generateGaussianValue(double mu) {
@@ -30,6 +30,6 @@ public class Randomizer {
         for(i = 0; i < values.size() && total < prob; ++i) {
             total += values.get(i);
         }
-        return i;
+        return i - 1;
     }
 }

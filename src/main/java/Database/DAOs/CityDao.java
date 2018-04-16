@@ -26,13 +26,14 @@ public class CityDao {
         PreparedStatement smt = null;
 
         try {
-            String command = "INSERT INTO City (Name, Coordinates, Area, Population) VALUES(?,?,?,?)";
+            String command = "INSERT INTO City (Name, Coordinates, Id, Area, Population) VALUES(?,?,?,?,?)";
 
             smt = conn.prepareStatement(command);
             smt.setString(1, city.getName());
             smt.setString(2, city.getCoordinates().getCoordinate());
-            smt.setDouble(3, city.getArea());
-            smt.setInt(4, city.getPopulation());
+            smt.setString(3, city.getId());
+            smt.setDouble(4, city.getArea());
+            smt.setInt(5, city.getPopulation());
 
             if(smt.executeUpdate() == 1) {
                 dbManager.safeClose(smt);
@@ -47,13 +48,14 @@ public class CityDao {
         catch (Exception e) {
             dbManager.safeClose(smt);
             dbManager.endTransaction(false);
-            System.out.println("Could not add city " + city.getName());
+            System.out.println("Could not add city " + city.getName() + " '" + city.getId() + "'");
+            e.printStackTrace();
         }
     }
 
-    public City getCityByName(String name) {
+    public BaseCity getCityByName(String name) {
 
-        City queriedCity = null;
+        BaseCity queriedCity = null;
 
         dbManager.startTransaction();
         Connection con = dbManager.getConnection();
@@ -69,12 +71,12 @@ public class CityDao {
             rs = smt.executeQuery();
 
             while(rs.next()) {
-               queriedCity = new City();
+               queriedCity = new BaseCity();
                queriedCity.setName(rs.getString("Name"));
                queriedCity.setCoordinates(new Coordinates(rs.getString("Coordinates")));
                queriedCity.setPopulation(rs.getInt("Population"));
                queriedCity.setArea(rs.getDouble("Area"));
-
+               queriedCity.setId(rs.getString("Id"));
             }
 
             dbManager.safeClose(rs);
@@ -91,7 +93,6 @@ public class CityDao {
        return queriedCity;
     }
 
-
     public List<BaseCity> getAllCities() {
         ArrayList<BaseCity> allCities = new ArrayList<BaseCity>();
 
@@ -107,10 +108,11 @@ public class CityDao {
             rs = smt.executeQuery();
 
             while(rs.next()) {
-                BaseCity x = new BaseCity(null); //todo:update
+                BaseCity x = new BaseCity(); //todo:update
                 x.setName(rs.getString("Name"));
                 x.setCoordinates(new Coordinates(rs.getString("Coordinates")));
                 x.setArea(rs.getDouble("Area"));
+                x.setId(rs.getString("Id"));
                 x.setPopulation(rs.getInt("Population"));
                 allCities.add(x);
             }

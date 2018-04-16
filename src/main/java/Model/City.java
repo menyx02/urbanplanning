@@ -6,6 +6,7 @@ public class City {
     private Coordinates coordinates;
     private double area;
     private int population;
+    private String id;
 
 
     //Empty constructor for DAO
@@ -21,11 +22,12 @@ public class City {
     }
 
     //Full initialization
-    public City(String name, Coordinates coordinates, double area, int population) {
+    public City(String name, String Id, Coordinates coordinates, double area, int population) {
         this.name = name;
         this.coordinates = coordinates;
         this.area = area;
         this.population = population;
+        this.id = Id;
     }
 
     public String getName() {
@@ -58,5 +60,9 @@ public class City {
 
     public void setPopulation(int population) {
         this.population = population;
+    }
+
+    public String getId() {
+        return id;
     }
 }

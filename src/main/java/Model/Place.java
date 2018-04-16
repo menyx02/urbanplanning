@@ -83,8 +83,7 @@ public class Place {
         setName(nextRecord[1]);
         setAsciiname(nextRecord[2]);
         setAlternatenames(nextRecord[3]);
-        setLatitude(nextRecord[4]);
-        setLongitude(nextRecord[5]);
+        setCoordinates(new Coordinates(nextRecord[4] + "," + nextRecord[5]));
         setFeature_class(nextRecord[6]);
         setFeature_code(nextRecord[7]);
         setCountry_code(nextRecord[8]);

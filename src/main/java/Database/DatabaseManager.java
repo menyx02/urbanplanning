@@ -71,8 +71,8 @@ public class DatabaseManager {
         try {
             st = connection.createStatement();
             String query = "CREATE  TABLE \"City\" (\"Name\" VARCHAR NOT NULL , \"Coordinates\" VARCHAR " +
-                    "NOT NULL  UNIQUE , \"Area\" INTEGER, \"Population\" INTEGER, PRIMARY KEY " +
-                    "(\"Name\", \"Coordinates\"))";
+                    "NOT NULL UNIQUE , \"Id\" VARCHAR NOT NULL UNIQUE, \"Area\" INTEGER, " +
+                    "\"Population\" INTEGER, PRIMARY KEY (\"Name\", \"Coordinates\"))";
             st.executeUpdate(query);
             endTransaction(true);
         }
@@ -116,15 +116,16 @@ public class DatabaseManager {
         try {
             st = connection.createStatement();
             String query = "CREATE  TABLE \"Place\" (\"Name\" VARCHAR NOT NULL , \"ZipCode\" INTEGER," +
-                    " \"City\" VARCHAR NOT NULL , \"Coordinates\" VARCHAR NOT NULL , \"Type\" VARCHAR NOT NULL , " +
+                    " \"CityId\" VARCHAR NOT NULL , \"Coordinates\" VARCHAR NOT NULL , \"Type\" VARCHAR NOT NULL , " +
                     "\"Population\" INTEGER, \"Dimension\" DOUBLE, \"IndexGrid\" VARCHAR, PRIMARY KEY (\"Name\", " +
-                    "\"Coordinates\", \"City\"))";
+                    "\"Coordinates\", \"CityId\"))";
             st.executeUpdate(query);
             endTransaction(true);
         }
         catch(SQLException e) {
             endTransaction(false);
             System.out.println("Could not create Place table");
+            e.printStackTrace();
         }
         finally {
             safeClose(st);

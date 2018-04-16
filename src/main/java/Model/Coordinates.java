@@ -15,7 +15,9 @@ public class Coordinates {
     }
 
     private void parseCoordinate(String coordinate) {
-        //TODO implement once I have the formate of the coordinates
+        String vals[] = coordinate.split(",");
+        lat = Double.valueOf(vals[0]);
+        longitude = Double.valueOf(vals[1]);
     }
 
     public double getLatitude() {

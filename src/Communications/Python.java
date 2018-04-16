@@ -30,7 +30,7 @@ public class Python {
             //Draw buildings
 
             for(int i = 0; i < matrices.size(); i++) {
-                for(int j = 0; j < matrices.get(i).getNumRows(); j++ ) {
+                for(int j = 0; j < matrices.get(i).rows(); j++ ) {
                     writer.write("objectId" + i + "_" + j + " = rs.AddPoint(" + matrices.get(i).getEntryAt(j).x +
                     ',' + matrices.get(i).getEntryAt(j).y + ',' + matrices.get(i).getEntryAt(j).z + ")\n");
 
